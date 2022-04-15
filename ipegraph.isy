@@ -1,0 +1,8 @@
+<ipestyle name="ipegraph">
+<preamble>
+\usepackage{tikz}
+\usepackage{pgfplots}
+\newdimen\itgfigurewidth
+\newdimen\itgfigureheight
+</preamble>
+</ipestyle>
