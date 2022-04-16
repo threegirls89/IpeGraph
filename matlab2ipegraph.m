@@ -191,7 +191,7 @@ function markstr = interpretMarker(plt, pltnum)
     if(~strcmp(plt.MarkerFaceColor, 'none'))
         markoptstr = [markoptstr,'fill=markerFillColor,', num2str(pltnum)];
     end
-    if(~strcmp(plt.MarkerFaceColor, 'none'))
+    if(~strcmp(plt.MarkerEdgeColor, 'none'))
         markoptstr = [markoptstr,'draw=markerEdgeColor,', num2str(pltnum)];
     end
     if(length(markoptstr) >= 1)
