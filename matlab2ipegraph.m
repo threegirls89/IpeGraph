@@ -90,7 +90,8 @@ function axisstr = interpretaxis(ax)
         'legend cell align=left,' newline];
 
     if(~isempty(ax.Legend))
-        axisstr = [axisstr 'legend pos=' ax.Legend.Location(1:5) ' ' ax.Legend.Location(6:end) ',' newline];
+%         axisstr = [axisstr 'legend pos=' ax.Legend.Location(1:5) ' ' ax.Legend.Location(6:end) ',' newline];
+        axisstr = [axisstr 'legend pos=north east,' newline];
     end
     
     axisstr = [axisstr 'xmin=' num2str(ax.XLim(1)) ',' newline ...
