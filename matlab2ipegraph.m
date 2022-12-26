@@ -56,7 +56,11 @@ function matlab2ipegraph(hfig, figuresize, filename)
         % 軸に属するプロットたち 今のところ2次元のplot, stairsのみ対応
         % プロットの表示順と逆順ぽい
         for j = length(plots):-1:1
-            writematrix([plots(j).XData.', plots(j).YData.'], sprintf('%s%d%d.txt', filename,i,j), 'Delimiter', ' ');
+            plotstart = min(find(plots(j).XData >= axs(i).XLim(1) & plots(j).XData <= axs(i).XLim(2), 1) - 1,1);
+            plotend = max(find(plots(j).XData >= axs(i).XLim(1) & plots(j).XData <= axs(i).XLim(2), 1, 'last') + 1);
+            plotskip = max(floor((plotend - plotstart + 1)/1000),1);
+            
+            writematrix([plots(j).XData(plotstart:plotskip:plotend).', plots(j).YData(plotstart:plotskip:plotend).'], sprintf('%s%d%d.txt', filename,i,j), 'Delimiter', ' ');
             fprintf(file,'\\addplot[%s,%s] table{%s};\n', interpretLine(plots(j), j), interpretMarker(plots(j), j), sprintf('%s%d%d.txt', fname,i,j));
         end
 
@@ -192,7 +196,7 @@ function markstr = interpretMarker(plt, pltnum)
     if(~strcmp(plt.MarkerFaceColor, 'none'))
         markoptstr = [markoptstr,'fill=markerFillColor,', num2str(pltnum)];
     end
-    if(~strcmp(plt.MarkerEdgeColor, 'none'))
+    if(~strcmp(plt.MarkerFaceColor, 'none'))
         markoptstr = [markoptstr,'draw=markerEdgeColor,', num2str(pltnum)];
     end
     if(length(markoptstr) >= 1)
